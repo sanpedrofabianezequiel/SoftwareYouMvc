@@ -10,6 +10,7 @@
         public Configuration()
         {
             AutomaticMigrationsEnabled = true;
+            AutomaticMigrationDataLossAllowed = true;//No recomendado=> para que no avise la perdida de DATA
         }
 
         protected override void Seed(SoftwareYOUmvc.Context.ApplicationDbContext context)
