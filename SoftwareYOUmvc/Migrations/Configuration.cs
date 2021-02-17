@@ -9,6 +9,17 @@
     {
         public Configuration()
         {
+            #region Estructura para utilizar AutomaticMigrationsEnabled = false; //Correcot
+
+            AutomaticMigrationsEnabled = false;
+
+            //Add-Migration "Name" 
+            //Update-Database
+            //update-database -NameMigracion  Resutl= Reverting Migrations
+            #endregion
+
+
+
             AutomaticMigrationsEnabled = true;
             AutomaticMigrationDataLossAllowed = true;//No recomendado=> para que no avise la perdida de DATA
         }

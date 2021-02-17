@@ -14,11 +14,12 @@ namespace SoftwareYOUmvc.Context
         //Podemos enviarles un Conexion string  public ApplicationDbContext() :base("miBase") { }
         public DbSet<Persona> Personas { get; set; }
         public DbSet<Direccion> Direcciones { get; set; }
+        public DbSet<SubDireccion> SubDireccion { get; set; }
         //enable-migrations => Activa
         //update-database  => Crea la BD => Cada vez que modifico algo
 
-        //protected override void OnModelCreating(DbModelBuilder modelBuilder)
-        //{
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
         //    modelBuilder.Properties<DateTime>()
         //        .Configure(x => x.HasColumnType("datatime2"));//Cambia las prop DATATIME por DATETIME2
 
@@ -26,8 +27,13 @@ namespace SoftwareYOUmvc.Context
         //        .Where(p => p.Name.StartsWith("Codigo"))
         //            .Configure( p => p.IsKey());//Las prop Codigo las setea como PK
 
-        //    base.OnModelCreating(modelBuilder);
-        //}
+              modelBuilder.Entity<Direccion>().HasRequired(x => x.Persona); //=> FK a cada Direccion le corresponde una Persona
+        //    modelBuilder.Entity<Direccion>().HasRequired(x => x.Persona).WithMany().HasForeignKey(x => x.IdPersona); => FK a cada Direccion le corresponde una Persona
+              modelBuilder.Entity<SubDireccion>().HasRequired(x=> x.Direccion);// Cada Subdireccion debe tener una relacion con una direccion
+            modelBuilder.Entity<Direccion>().Property(x => x.Calle).HasMaxLength(300).IsRequired();
+            
+            base.OnModelCreating(modelBuilder);
+        }
 
         //protected override bool ShouldValidateEntity(DbEntityEntry entityEntry)//Si estamos validando
         //{
